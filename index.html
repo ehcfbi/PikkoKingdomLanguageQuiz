@@ -31,7 +31,6 @@
         <div id="choices">
             <!-- Choices will be appended here -->
         </div>
-        <button onclick="nextQuestion()">次の質問</button>
     </div>
     <div id="result">
         正解数: <span id="correct-count">0</span><br>
@@ -45,6 +44,7 @@
     <script>
         const questions = [
             {image: 'caharacter/char_koigh.png', audio: 'path/to/audio1.mp3', choices: ['あなた', '私の', '私', 'あなたの'], answer: 2},
+　　　　　　　{image: 'caharacter/char_yaigh', audio: 'path/to/audio1.mp3', choices: ['あなたの', '私の', '私', 'あなた'], answer: 3},
             // ... 46 other questions
         ];
 
@@ -82,6 +82,9 @@
                 incorrectCount++;
                 document.getElementById('incorrect-count').textContent = incorrectCount;
             }
+
+            // 次の質問をロード
+            setTimeout(nextQuestion, 1000); // 1秒後に次の質問を表示
         }
 
         function nextQuestion() {
