@@ -13,6 +13,10 @@
         #quiz-container {
             margin-top: 50px;
         }
+        #question-image {
+            width: 300px;  /* ここで幅を調整 */
+            height: auto;  /* 高さは自動調整 */
+        }
         .choice {
             margin: 10px 0;
         }
@@ -40,7 +44,6 @@
 
     <script>
         const questions = [
-            // 配列内にランダムに表示する文字の画像と音声ファイルのパスを追加します
             {image: 'caharacter/char_koigh.png', audio: 'path/to/audio1.mp3', choices: ['あなた', '私の', '私', 'あなたの'], answer: 2},
             // ... 46 other questions
         ];
