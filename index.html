@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>文字クイズ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        #quiz-container {
+            margin-top: 50px;
+        }
+        .choice {
+            margin: 10px 0;
+        }
+        #result {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="quiz-container">
+        <img id="question-image" src="" alt="Question Image">
+        <div id="choices">
+            <!-- Choices will be appended here -->
+        </div>
+        <button onclick="nextQuestion()">次の質問</button>
+    </div>
+    <div id="result">
+        正解数: <span id="correct-count">0</span><br>
+        不正解数: <span id="incorrect-count">0</span>
+    </div>
+
+    <audio id="audio" src=""></audio>
+    <audio id="correct-sound" src="correct-sound.mp3"></audio>
+    <audio id="incorrect-sound" src="incorrect-sound.mp3"></audio>
+
+    <script>
+        const questions = [
+            // 配列内にランダムに表示する文字の画像と音声ファイルのパスを追加します
+            {image: 'path/to/image1.jpg', audio: 'path/to/audio1.mp3', choices: ['選択肢1', '選択肢2', '選択肢3', '選択肢4'], answer: 0},
+            // ... 46 other questions
+        ];
+
+        let currentQuestionIndex = 0;
+        let correctCount = 0;
+        let incorrectCount = 0;
+
+        function loadQuestion() {
+            const question = questions[currentQuestionIndex];
+            document.getElementById('question-image').src = question.image;
+
+            const audio = document.getElementById('audio');
+            audio.src = question.audio;
+            audio.play();
+
+            const choicesContainer = document.getElementById('choices');
+            choicesContainer.innerHTML = '';
+            question.choices.forEach((choice, index) => {
+                const button = document.createElement('button');
+                button.textContent = choice;
+                button.classList.add('choice');
+                button.onclick = () => checkAnswer(index);
+                choicesContainer.appendChild(button);
+            });
+        }
+
+        function checkAnswer(selectedIndex) {
+            const question = questions[currentQuestionIndex];
+            if (selectedIndex === question.answer) {
+                document.getElementById('correct-sound').play();
+                correctCount++;
+                document.getElementById('correct-count').textContent = correctCount;
+            } else {
+                document.getElementById('incorrect-sound').play();
+                incorrectCount++;
+                document.getElementById('incorrect-count').textContent = incorrectCount;
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
